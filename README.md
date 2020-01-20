@@ -45,7 +45,7 @@ you’ll need these to provide the Serverless Framework with access.
 
 In your CLI, type
 ````
-npm sls config credentials --provider aws --key YOUR_ACCESS_KEY_ID --secret YOUR_SECRET_ACCESS_KEY
+sls config credentials --provider aws --key YOUR_ACCESS_KEY_ID --secret YOUR_SECRET_ACCESS_KEY
 ````
 replacing `YOUR_ACCESS_KEY_ID` and `YOUR_SECRET_ACCESS_KEY` with your own keys.
 
@@ -63,14 +63,14 @@ const SENDER = 'your_email@example.com';
 ````
 replace `your_email@example.com` with your verified email.
 
-Until now, you should be about to test the function. You can test the function locally with following commend.
+Until now, you should be able to test the function. You can test the function locally with following commend.
 ````
 sls invoke local --function soezySiteMailer --path testData.json
 ````
 It uses the data from `testData.json` file to test function.
 
-When it success, you will be able to receive the email with your verified email address.
-You will also see the following message in the CLI:
+When it is success, you will be able to receive the email with your verified email address.
+You will also see the following message in the console:
 ````
 Received event:  {
   email: 'sender_email@example.com',
@@ -95,14 +95,14 @@ Received event:  {
     }
 }
 ````
-> ERROR: If the email fails to send, check your email if it is correct or verified.
-> Also make sure the region of verified email is same as the region in `serverless.yml` file
+> ERROR: If the email failed to send, check your email to see if it is correct or verified.
+> Also make sure the region of the verified email is the same as the region in `serverless.yml` file
 > under the provider.
 
 ### Before deploy
-Last step before deploy lambda function.
+Last step before deploy application.
 
-You will need to go to `handler.js`, and in the headers where
+You will need to go to `handler.js`, and in the headers where the code as below
 ````
 'Access-Control-Allow-Origin' : '*'
 ````
@@ -116,5 +116,5 @@ https://r4nd0mh45h.execute-api.us-east-1.amazonaws.com/dev/soezy-site-mailer
 ````
 which you can add to the contact form action.
 
-### In Soezy
-Go to `Signup_data.js` and replace `url` with the url you get from deploy your application.
+### For Soezy website
+Go to `Signup_data.js` file and replace `url` with the url you get from deploy your application.
