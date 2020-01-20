@@ -1,0 +1,16 @@
+{
+  "name": "soezy-mail-service",
+  "version": "1.0.0",
+  "description": "soezy mailing lambda service for contact form",
+  "main": "handler.js",
+  "dependencies": {
+    "aws-sdk": "^2.606.0",
+    "serverless": "^1.61.2"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}
