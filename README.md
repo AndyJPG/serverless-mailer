@@ -54,20 +54,23 @@ Follow the step to verify the email address that you want to receive emails.
 
 Verify email step link: https://docs.aws.amazon.com/ses/latest/DeveloperGuide/verify-email-addresses-procedure.html
 
-### Modify code
-Go to handler.js file in the project.
-Change following code:
-````
-const RECEIVER = 'your_email@example.com';
-const SENDER = 'your_email@example.com';
-````
-replace `your_email@example.com` with your verified email.
+### Test function
 
 Until now, you should be able to test the function. You can test the function locally with following commend.
 ````
-sls invoke local --function soezySiteMailer --path testData.json
+sls invoke local -f soezySiteMailer --region your_email_region --email your_email@example.com --allowOrigin your_domain.com --path testData.json
 ````
 It uses the data from `testData.json` file to test function.
+Replace `your_email_region` with your verified email region, and the default region is `ap-southeast-2`.
+Replace `your_email@example.com` with your own verified email, and replace `your_domain.com` with your own domain.
+
+You can also test function without give it a domain like the following command.
+````
+sls invoke local -f soezySiteMailer --region your_email_region --email your_email@example.com --path testData.json
+````
+It will use default variable for origin access control, which is any origin or sources.
+> NOTE: It is OK for testing, but you need to give it a origin to prevent
+>any other domains from using your service when you deploy it.
 
 When it is success, you will be able to receive the email with your verified email address.
 You will also see the following message in the console:
@@ -96,20 +99,15 @@ Received event:  {
 }
 ````
 > ERROR: If the email failed to send, check your email to see if it is correct or verified.
-> Also make sure the region of the verified email is the same as the region in `serverless.yml` file
-> under the provider.
-
-### Before deploy
-Last step before deploy application.
-
-You will need to go to `handler.js`, and in the headers where the code as below
-````
-'Access-Control-Allow-Origin' : '*'
-````
-replace `*` with your own domain. This will prevent any other domains from using your service.
+> Also make sure the region of the verified email is the same as the region you provided.
 
 ### Deploy to AWS
-To deploy it run `sls deploy -v`.
+To deploy it run following command in the CLI.
+````
+sls deploy --region your_email_region --email your_email@example.com --allowOrigin your_domain.com
+````
+Same as testing, replace `your_email_region`, `your_email@example.com` and `your_domain.com` with your own information.
+
 Once it's deployed you'll get a endpoint URL in the console that looks like
 ````
 https://r4nd0mh45h.execute-api.us-east-1.amazonaws.com/dev/soezy-site-mailer

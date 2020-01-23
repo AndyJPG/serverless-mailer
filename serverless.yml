@@ -23,7 +23,7 @@ service: soezy-site-mailer
 provider:
   name: aws
   runtime: nodejs12.x
-  region: ap-southeast-2
+  region: ${opt:region, 'ap-southeast-2'}
 # you can add statements to the Lambda function's IAM Role here
   iamRoleStatements:
     - Effect: "Allow"
@@ -34,6 +34,9 @@ provider:
 functions:
   soezySiteMailer:
     handler: handler.soezySiteMailer
+    environment:
+      email: ${opt:email}
+      accessControlAllowOrigin: ${opt:allowOrigin, '*'}
     events:
       - http:
           path: soezy-site-mailer
