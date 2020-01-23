@@ -3,8 +3,8 @@
 const AWS = require('aws-sdk');
 const SES = new AWS.SES();
 
-const RECEIVER = 'your_email@example.com';
-const SENDER = 'your_email@example.com';
+const RECEIVER = process.env.email;
+const SENDER = process.env.email;
 
 function sendEmail(formData, callback) {
     const emailParams = {
@@ -39,7 +39,7 @@ module.exports.soezySiteMailer = (event, context, callback) => {
             statusCode: err ? 500 : 200,
             headers: {
                 'Content-Type' : 'application/json',
-                'Access-Control-Allow-Origin' : '*',
+                'Access-Control-Allow-Origin' : process.env.accessControlAllowOrigin,
             },
             body: JSON.stringify({
                 message: err ? err.message : data,
